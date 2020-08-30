@@ -7,24 +7,46 @@ import logging
 LOCAL_FILE_BASE_PATH = './tests/resources'
 FILE_NAME = 'integrationTest.txt'
 
+ENVIRONMENT_VARIABLES = {
+    FTP_SERVER_ENV_VARIABLE: 'localhost',
+    FTP_USER_ENV_VARIABLE: 'ftpUser',
+    FTP_PASSWORD_ENV_VARIABLE: 'ftpPass'}
+
 class TestFTPFileUploader(unittest.TestCase):
     def setUp(self):
         logger = logging.getLogger().setLevel(logging.DEBUG)
 
     def test_no_environment(self):
         with self.assertRaises(FTPException):
-            self.uploader = FTPFileUploader()
+            uploader = FTPFileUploader()
 
     def test_connection(self):
-        self.env = patch.dict('os.environ', {
-            FTP_SERVER_ENV_VARIABLE: 'localhost',
-            FTP_USER_ENV_VARIABLE: 'ftpUser',
-            FTP_PASSWORD_ENV_VARIABLE: 'ftpPass'})
+        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
         with self.env:
-            self.uploader = FTPFileUploader()
-            self.uploader.connect()
-            self.uploader.close()
+            uploader = FTPFileUploader()
+            try:
+                uploader.connect()
+            finally:
+                uploader.close()
             pass
+
+    def set_passive_mode_before_connection(self):
+        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
+        with self.env:
+            uploader = FTPFileUploader()
+            with self.assertRaises(FTPException):
+                uploader.set_passive_mode(False)
+
+    def set_passive_mode_after_connection(self):
+        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
+        with self.env:
+            uploader = FTPFileUploader()
+            try:
+                uploader.connect()
+                with self.assertRaises(FTPException):
+                    uploader.set_passive_mode(False)
+            finally:
+                uploader.close()
 
     def remove_file_silently(self, ftpClient, filename):
         try:
@@ -33,21 +55,18 @@ class TestFTPFileUploader(unittest.TestCase):
             pass
 
     def test_upload_file(self):
-        self.env = patch.dict('os.environ', {
-            FTP_SERVER_ENV_VARIABLE: 'localhost',
-            FTP_USER_ENV_VARIABLE: 'ftpUser',
-            FTP_PASSWORD_ENV_VARIABLE: 'ftpPass'})
+        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
         with self.env:
-            self.uploader = FTPFileUploader()
-            self.uploader.connect()
+            uploader = FTPFileUploader()
+            uploader.connect()
 
-            self.remove_file_silently(self.uploader._FTPFileUploader__ftp, FILE_NAME)
+            self.remove_file_silently(uploader._FTPFileUploader__ftp, FILE_NAME)
             try:
-                self.uploader.upload_text_file(LOCAL_FILE_BASE_PATH, FILE_NAME)
-                self.assertIsNotNone(self.uploader._FTPFileUploader__ftp.size(FILE_NAME))
+                uploader.upload_text_file(LOCAL_FILE_BASE_PATH, FILE_NAME)
+                self.assertIsNotNone(uploader._FTPFileUploader__ftp.size(FILE_NAME))
             finally:
-                self.remove_file_silently(self.uploader._FTPFileUploader__ftp, FILE_NAME)
-                self.uploader.close()
+                self.remove_file_silently(uploader._FTPFileUploader__ftp, FILE_NAME)
+                uploader.close()
 
 
 if __name__ == '__main__':

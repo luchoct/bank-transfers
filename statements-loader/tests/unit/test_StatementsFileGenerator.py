@@ -1,6 +1,6 @@
 import unittest
 from statements_loader.StatementsFileGenerator import StatementsFileGenerator, MockedData, \
-    FILE_NAME_SUFFIX, FILE_NAME_PREFIX_DATEFORMAT, STATEMENT_MAX_AMOUNT
+    FILE_PATH_SEPARATOR, FILE_NAME_SUFFIX, FILE_NAME_PREFIX_DATEFORMAT, STATEMENT_MAX_AMOUNT
 from datetime import datetime
 from os.path import isfile
 import os
@@ -40,7 +40,8 @@ class TestStatementsFileGenerator(unittest.TestCase):
 
     def test_generate_file(self):
         account_details = MockedData.get_account_details()
-        filepath = StatementsFileGenerator.generate_file(TEST_FILE_OUTPUT_DIRECTORY)
+        filename = StatementsFileGenerator.generate_file(TEST_FILE_OUTPUT_DIRECTORY)
+        filepath = TEST_FILE_OUTPUT_DIRECTORY + FILE_PATH_SEPARATOR + filename
         self.assertTrue(isfile(filepath))
         with open(filepath, 'r', encoding='utf8') as file :
             lines = file.readlines()

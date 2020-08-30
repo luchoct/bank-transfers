@@ -33,6 +33,12 @@ class FTPFileUploader:
         except all_errors as cause:
             raise FTPException('Error connecting to FTP', cause)
 
+    def set_passive_mode(self, passive):
+        try:
+            self.__ftp.set_pasv(passive)
+        except NameError:
+            raise FTPException('Can\'t change the passive mode before connecting to FTP server')
+
     def upload_text_file(self, local_file_base_path, filename):
         local_file_path = local_file_base_path + '/' + filename
         logging.debug('Uploading file %s to FTP server' % local_file_path)

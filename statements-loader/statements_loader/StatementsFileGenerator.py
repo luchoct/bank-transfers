@@ -3,7 +3,8 @@ from datetime import datetime
 from random import randrange
 
 FILE_OUTPUT_DIRECTORY = 'tmp/generatedFiles'
-FILE_NAME_PREFIX_DATEFORMAT = '%y%m%dT%H%M%SZ'
+FILE_PATH_SEPARATOR = '/'
+FILE_NAME_PREFIX_DATEFORMAT = '%Y%m%dT%H%M%SZ'
 FILE_NAME_SUFFIX = '.csv'
 FILE_ENCODING = 'utf8'
 FILE_MAX_NUMBER_STATEMENTS = 100
@@ -126,8 +127,8 @@ class StatementsFileGenerator:
 
     @staticmethod
     def generate_file(file_output_directory):
-        filepath = file_output_directory + '/' + StatementsFileGenerator.get_filename()
+        filename = StatementsFileGenerator.get_filename()
         generated_statements = StatementsFileGenerator.generate_file_statements()
-        StatementsFileGenerator.store_file(filepath, generated_statements)
-        return filepath
+        StatementsFileGenerator.store_file(file_output_directory + FILE_PATH_SEPARATOR + filename, generated_statements)
+        return filename
 

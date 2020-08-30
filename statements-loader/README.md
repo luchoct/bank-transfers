@@ -4,13 +4,19 @@ Module that generates random statements and stores them into an FTP server.
 ## Functional details
 This module emulates 3rd parties storing files into an FTP server.
 
+* File names of generated files follow the yyyymmddThhmmssZ in UTC time.
+* A new file is generated every 60 seconds, approximately, with maximum 100 statements per file.
+
 ## Technical details
-This module is implemented in Python, and generates files every certain time.
+This module is implemented in Python.
 
-Number of statements included in every file is random.
+## Running only this module (standalone)
+In the current dir, launch docker-compose with the configuration file for standalone mode.
+```
+start docker-compose -f docker-compose-standalone.yml up
+```
+Note that the ftp server is also started.
 
-## Running the module
-In case of running just this module, you can launch the server
 ## Environment variables
 * `FTP_SERVER`: the host of the FTP server
 * `FTP_USER`: the user of FTP server
@@ -41,7 +47,6 @@ In order to run unit tests, run following commands in the current dir:
 ```
 .\venv\Scripts\python.exe -m unittest discover -s tests/unit
 ```
-
    
 # TODOs
 * FTP connection uses default timeouts of Python ftplib module.

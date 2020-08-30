@@ -21,7 +21,7 @@ services:
       - ftp-server-statements-loader-standalone
     environment:
       LOGLEVEL: DEBUG
-      FTP_SERVER: ftp-server-statements-loader-standalone
+      FTP_SERVER: "ftp-server-statements-loader-standalone"
       FTP_USER: ftpUser
       FTP_PASSWORD: ftpPass
     volumes:
