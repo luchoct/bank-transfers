@@ -1,10 +1,11 @@
 import unittest
-from FTPFileUploader import FTPFileUploader, FTPException, FTP_SERVER_ENV_VARIABLE, FTP_USER_ENV_VARIABLE, FTP_PASSWORD_ENV_VARIABLE
+from statements_loader.FTPFileUploader import FTPFileUploader, FTPException, FTP_SERVER_ENV_VARIABLE, \
+    FTP_USER_ENV_VARIABLE, FTP_PASSWORD_ENV_VARIABLE
 from unittest.mock import patch
 import logging
 
-FILE_PATH = '../resources/file.txt'
-REMOTE_FILE_NAME = 'remotefile.txt'
+LOCAL_FILE_BASE_PATH = './tests/resources'
+FILE_NAME = 'integrationTest.txt'
 
 class TestFTPFileUploader(unittest.TestCase):
     def setUp(self):
@@ -40,13 +41,12 @@ class TestFTPFileUploader(unittest.TestCase):
             self.uploader = FTPFileUploader()
             self.uploader.connect()
 
-            self.remove_file_silently(self.uploader._FTPFileUploader__ftp, REMOTE_FILE_NAME)
+            self.remove_file_silently(self.uploader._FTPFileUploader__ftp, FILE_NAME)
             try:
-                with open(FILE_PATH, 'rb') as file:
-                    self.uploader.upload_text_file(REMOTE_FILE_NAME, file)
-                self.assertIsNotNone(self.uploader._FTPFileUploader__ftp.size(REMOTE_FILE_NAME))
+                self.uploader.upload_text_file(LOCAL_FILE_BASE_PATH, FILE_NAME)
+                self.assertIsNotNone(self.uploader._FTPFileUploader__ftp.size(FILE_NAME))
             finally:
-                self.remove_file_silently(self.uploader._FTPFileUploader__ftp, REMOTE_FILE_NAME)
+                self.remove_file_silently(self.uploader._FTPFileUploader__ftp, FILE_NAME)
                 self.uploader.close()
 
 

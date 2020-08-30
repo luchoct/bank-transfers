@@ -33,14 +33,16 @@ class FTPFileUploader:
         except all_errors as cause:
             raise FTPException('Error connecting to FTP', cause)
 
-    def upload_text_file(self, fileRemoteName, file):
-        logging.debug('Uploading file %s'%fileRemoteName)
+    def upload_text_file(self, local_file_base_path, filename):
+        local_file_path = local_file_base_path + '/' + filename
+        logging.debug('Uploading file %s to FTP server' % local_file_path)
         try:
-            ftpResponse = self.__ftp.storlines('STOR %s'%fileRemoteName, file)
-            if not ftpResponse.startswith('226'):
-                raise FTPException('Upload of file %s failed: reponse %s'%(fileRemoteName,ftpResponse), None)
+            with open(local_file_path, 'rb') as file:
+                ftpResponse = self.__ftp.storlines('STOR %s' % filename, file)
+                if not ftpResponse.startswith('226'):
+                    raise FTPException('Upload of file %s failed: reponse %s' % (local_file_path, ftpResponse), None)
         except all_errors as cause:
-            raise FTPException('Error uploading file %s'%fileRemoteName, cause)
+            raise FTPException('Error uploading file %s' % local_file_path, cause)
 
     def close(self):
         self.__ftp.quit()
