@@ -1,2 +1,12 @@
 statements-loader/out/
 __pycache__/
+
+statements-processor/.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!statements-processor/**/src/main/**/build/
+!statements-processor/**/src/test/**/build/
+
+.idea/*.iws
+.idea/workspace.xml
+.idea/tasks.xml

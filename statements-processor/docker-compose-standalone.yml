@@ -13,17 +13,3 @@ services:
     volumes:
       - "./out/run/ftpServerContent:/home/ftpUser/"
     restart: on-failure
-  statements_loader-standalone:
-    tty: true
-    build:
-      context: .
-    depends_on:
-      - ftp-server-statements-loader-standalone
-    environment:
-      LOGLEVEL: INFO
-      FTP_SERVER: ftp-server-statements-loader-standalone
-      FTP_USER: ftpUser
-      FTP_PASSWORD: ftpPass
-    volumes:
-      - "./out/run/generatedFiles:/loader/out"
-    restart: on-failure

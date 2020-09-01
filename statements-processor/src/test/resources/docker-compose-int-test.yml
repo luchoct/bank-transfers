@@ -1,6 +1,6 @@
 version: '3'
 services:
-  ftp-server-statements-loader-int-test:
+  ftp-server-statements-processor-int-test:
     image: stilliard/pure-ftpd
     environment:
       PUBLICHOST: "0.0.0.0"
@@ -11,4 +11,6 @@ services:
       - "21:21"
       - "30000-30009:30000-30009"
     volumes:
-      - "../../out/runTests/ftpServerContent:/home/ftpUser/"
+      - "./ftpServerContent:/home/ftpUser/"
+
+

@@ -10,17 +10,23 @@ This module emulates 3rd parties storing files into an FTP server.
 ## Technical details
 This module is implemented in Python.
 
+### Environment variables
+This module loads FTP configuration from environment variables:
+* `FTP_SERVER`: the host of the FTP server
+* `FTP_USER`: the user of FTP server
+* `FTP_PASSWORD`: the user of FTP server
+
 ## Running only this module (standalone)
+Launching this module starts the module and ftp server.
+
 In the current dir, launch docker-compose with the configuration file for standalone mode.
 ```
 start docker-compose -f docker-compose-standalone.yml up
 ```
-Note that the ftp server is also started.
-
-## Environment variables
-* `FTP_SERVER`: the host of the FTP server
-* `FTP_USER`: the user of FTP server
-* `FTP_PASSWORD`: the user of FTP server
+Stop services and remove containers with following command:
+```
+docker-compose -f docker-compose-standalone.yml down
+```
 
 ## Integration tests.
 Before running the tests the FTP server must be launched.
@@ -33,6 +39,11 @@ In the current dir, run following commands:
     ```
     .\venv\Scripts\python.exe -m unittest discover -s tests/integration
     ```
+3. Stop services and remove containers with following command:
+    ```
+    docker-compose -f ./tests/resources/docker-compose-int-test.yml down
+    ```
+  
 As per configuration of FTP server in docker-compose, the integration tests 
 regarding FTP server set the following env variables:
 * `FTP_SERVER`: `localhost`

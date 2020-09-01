@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: test
+
+logging:
+  level:
+    org.springframework: INFO
+    com.luchoct: DEBUG
+
+ftpServer:
+  host: 0.0.0.0
+  port: 21
+  username: ftpUser
+  password: ftpPass
+  clientMode: 0
+
+sourceFiles:
+  charset: UTF-8
+
+channel:
+  statementsFileRead:
+    localDirectory: out/runTests/temporaryFtpFiles
