@@ -1,6 +1,6 @@
 import unittest
 from statements_loader.FTPFileUploader import FTPFileUploader, FTPException, FTP_SERVER_ENV_VARIABLE, \
-    FTP_USER_ENV_VARIABLE, FTP_PASSWORD_ENV_VARIABLE
+    FTP_USER_ENV_VARIABLE, FTP_PASSWORD_ENV_VARIABLE, FTP_PASSIVE_ENV_VARIABLE
 from unittest.mock import patch
 import logging
 
@@ -10,7 +10,9 @@ FILE_NAME = 'integrationTest.txt'
 ENVIRONMENT_VARIABLES = {
     FTP_SERVER_ENV_VARIABLE: 'localhost',
     FTP_USER_ENV_VARIABLE: 'ftpUser',
-    FTP_PASSWORD_ENV_VARIABLE: 'ftpPass'}
+    FTP_PASSWORD_ENV_VARIABLE: 'ftpPass',
+    FTP_PASSIVE_ENV_VARIABLE: 'True'
+}
 
 class TestFTPFileUploader(unittest.TestCase):
     def setUp(self):
@@ -29,24 +31,6 @@ class TestFTPFileUploader(unittest.TestCase):
             finally:
                 uploader.close()
             pass
-
-    def set_passive_mode_before_connection(self):
-        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
-        with self.env:
-            uploader = FTPFileUploader()
-            with self.assertRaises(FTPException):
-                uploader.set_passive_mode(False)
-
-    def set_passive_mode_after_connection(self):
-        self.env = patch.dict('os.environ', ENVIRONMENT_VARIABLES)
-        with self.env:
-            uploader = FTPFileUploader()
-            try:
-                uploader.connect()
-                with self.assertRaises(FTPException):
-                    uploader.set_passive_mode(False)
-            finally:
-                uploader.close()
 
     def remove_file_silently(self, ftpClient, filename):
         try:

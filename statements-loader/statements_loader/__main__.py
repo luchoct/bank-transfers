@@ -16,7 +16,6 @@ def main():
             filename = StatementsFileGenerator.generate_file(FILE_OUTPUT_DIRECTORY)
             logging.info('Generated file %s at %s', filename, FILE_OUTPUT_DIRECTORY)
             uploader.connect()
-            uploader.set_passive_mode(False)
             uploader.upload_text_file(FILE_OUTPUT_DIRECTORY, filename)
             logging.info('Uploaded file %s', filename)
             uploader.close()

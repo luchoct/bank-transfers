@@ -1,6 +1,6 @@
 version: '3'
 services:
-  ftp-server-statements-loader-standalone:
+  ftp-server:
     image: stilliard/pure-ftpd
     environment:
       PUBLICHOST: "0.0.0.0"
@@ -13,17 +13,18 @@ services:
     volumes:
       - "./out/run/ftpServerContent:/home/ftpUser/"
     restart: on-failure
-  statements_loader-standalone:
-    tty: true
+  statements-loader:
     build:
       context: .
+    image: luchoct/statements-loader
     depends_on:
-      - ftp-server-statements-loader-standalone
+      - ftp-server
     environment:
       LOGLEVEL: INFO
-      FTP_SERVER: ftp-server-statements-loader-standalone
+      FTP_SERVER: ftp-server
       FTP_USER: ftpUser
       FTP_PASSWORD: ftpPass
+      FTP_PASSIVE: "False"
     volumes:
       - "./out/run/generatedFiles:/loader/out"
     restart: on-failure

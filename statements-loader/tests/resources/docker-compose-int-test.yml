@@ -7,6 +7,7 @@ services:
       FTP_USER_NAME: ftpUser
       FTP_USER_PASS: ftpPass
       FTP_USER_HOME: /home/ftpUser
+      FTP_PASSIVE: "True"
     ports:
       - "21:21"
       - "30000-30009:30000-30009"

@@ -5,6 +5,7 @@ import logging
 FTP_SERVER_ENV_VARIABLE = 'FTP_SERVER'
 FTP_USER_ENV_VARIABLE = 'FTP_USER'
 FTP_PASSWORD_ENV_VARIABLE = 'FTP_PASSWORD'
+FTP_PASSIVE_ENV_VARIABLE = 'FTP_PASSIVE'
 
 
 class FTPException(Exception):
@@ -22,22 +23,19 @@ class FTPFileUploader:
             self.__host = environ[FTP_SERVER_ENV_VARIABLE]
             self.__user = environ[FTP_USER_ENV_VARIABLE]
             self.__password = environ[FTP_PASSWORD_ENV_VARIABLE]
-            logging.debug('Loaded environment host %s user %s and password', self.__host, self.__user)
+            self.__passive = environ[FTP_PASSIVE_ENV_VARIABLE].lower() in ['true', 'yes']
+            logging.debug('Loaded connection details host %s user %s and password', self.__host, self.__user)
+            logging.debug('Loaded client details passive %s', self.__passive)
         except KeyError as cause:
             raise FTPException('Error retrieving env variable', cause)
 
     def connect(self):
         try:
             self.__ftp = FTP(self.__host, self.__user, self.__password)
-            logging.info('Connected to FTP server at %s', self.__host)
+            self.__ftp.set_pasv(self.__passive)
+            logging.info('Connected to FTP server at %s. Passive mode is %s', self.__host, self.__passive)
         except all_errors as cause:
             raise FTPException('Error connecting to FTP', cause)
-
-    def set_passive_mode(self, passive):
-        try:
-            self.__ftp.set_pasv(passive)
-        except NameError:
-            raise FTPException('Can\'t change the passive mode before connecting to FTP server')
 
     def upload_text_file(self, local_file_base_path, filename):
         local_file_path = local_file_base_path + '/' + filename

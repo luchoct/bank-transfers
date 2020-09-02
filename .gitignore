@@ -1,5 +1,5 @@
 statements-loader/out/
-__pycache__/
+**/__pycache__/
 
 statements-processor/.gradle
 build/
