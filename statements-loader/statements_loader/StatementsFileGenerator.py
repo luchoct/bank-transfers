@@ -2,7 +2,6 @@ import logging
 from datetime import datetime
 from random import randrange
 
-FILE_OUTPUT_DIRECTORY = 'tmp/generatedFiles'
 FILE_PATH_SEPARATOR = '/'
 FILE_NAME_PREFIX_DATEFORMAT = '%Y%m%dT%H%M%SZ'
 FILE_NAME_SUFFIX = '.csv'

@@ -12,10 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class ZonedDateTimeWriteConverterTest {
 
     @Test
-    void convert() {
-    }
-
-    @Test
     void convert_returnsRightValue() {
         //given
         final ZonedDateTime zonedDateTime = ZonedDateTime.now();

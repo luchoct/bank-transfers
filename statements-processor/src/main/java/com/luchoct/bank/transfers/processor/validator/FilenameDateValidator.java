@@ -12,16 +12,16 @@ import java.util.Optional;
 
 @Component
 public class FilenameDateValidator implements FieldValidator<ZonedDateTime> {
-    private static final String API_DATETIME_FORMAT = "yyyyMMdd'T'HHmmss'Z.csv'";
+    private static final String FILENAME_FORMAT = "yyyyMMdd'T'HHmmss'Z.csv'";
 
-    private static final ThreadLocal<DateTimeFormatter> API_DATETIME_DTF_HOLDER =
-            ThreadLocal.withInitial(() -> DateTimeFormatter.ofPattern(API_DATETIME_FORMAT));
+    private static final ThreadLocal<DateTimeFormatter> FILENAME_DATETIME_DTF_HOLDER =
+            ThreadLocal.withInitial(() -> DateTimeFormatter.ofPattern(FILENAME_FORMAT));
 
     @Override
     public Optional<ZonedDateTime> getValidatedValue(final String value, final List<String> errors) {
         try {
             final ZonedDateTime parse = ZonedDateTime.of(
-                    LocalDateTime.parse(value, API_DATETIME_DTF_HOLDER.get()),
+                    LocalDateTime.parse(value, FILENAME_DATETIME_DTF_HOLDER.get()),
                     ZoneOffset.UTC);
 
             return Optional.of(parse);
@@ -32,6 +32,6 @@ public class FilenameDateValidator implements FieldValidator<ZonedDateTime> {
     }
 
     public String toString() {
-        return API_DATETIME_DTF_HOLDER.get().format(ZonedDateTime.now());
+        return FILENAME_DATETIME_DTF_HOLDER.get().format(ZonedDateTime.now());
     }
 }
