@@ -1,12 +1,12 @@
-statements-loader/out/
-**/__pycache__/
+/.idea/*.iws
+/.idea/workspace.xml
+/.idea/tasks.xml
+/out/run
 
-statements-processor/.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!statements-processor/**/src/main/**/build/
-!statements-processor/**/src/test/**/build/
+/statements-loader/out/
+/statements-loader/**/__pycache__/
 
-.idea/*.iws
-.idea/workspace.xml
-.idea/tasks.xml
+/statements-processor/.gradle
+/statements-processor/build/
+!/statements-processor/gradle/wrapper/gradle-wrapper.jar
+
