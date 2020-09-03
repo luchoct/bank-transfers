@@ -15,9 +15,7 @@ public class FilenameDateValidator implements FieldValidator<ZonedDateTime> {
     private static final String API_DATETIME_FORMAT = "yyyyMMdd'T'HHmmss'Z.csv'";
 
     private static final ThreadLocal<DateTimeFormatter> API_DATETIME_DTF_HOLDER =
-            ThreadLocal.withInitial(() -> {
-                return DateTimeFormatter.ofPattern(API_DATETIME_FORMAT);
-            });
+            ThreadLocal.withInitial(() -> DateTimeFormatter.ofPattern(API_DATETIME_FORMAT));
 
     @Override
     public Optional<ZonedDateTime> getValidatedValue(final String value, final List<String> errors) {

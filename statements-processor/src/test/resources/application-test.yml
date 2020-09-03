@@ -1,6 +1,9 @@
 spring:
   profiles:
     active: test
+  data:
+    mongodb:
+      uri: mongodb://bankTranksfersUser:bankTranksfersPass@mongo-db-statements-processor-int-test:27017/bank-transfers
 
 logging:
   level:

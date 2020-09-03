@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class ValidationUtils {
     private ValidationUtils() {}
 
-    private static Pattern DNI_PATTERN = Pattern.compile("[0-9]{8,8}[A-Z]");
+    private static final Pattern DNI_PATTERN = Pattern.compile("[0-9]{8,8}[A-Z]");
     private static final String CONTROL_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
 
     public static boolean isDNI(final String value) {

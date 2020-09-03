@@ -12,5 +12,15 @@ services:
       - "30000-30009:30000-30009"
     volumes:
       - "./ftpServerContent:/home/ftpUser/"
+  mongo-db-statements-processor-int-test:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_DATABASE: bank-transfers
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminPass
+    ports:
+      - "27017:27017"
+    volumes:
+      - "../../../../mongodb/init-db.js:/docker-entrypoint-initdb.d/initdb.js:ro"
 
 

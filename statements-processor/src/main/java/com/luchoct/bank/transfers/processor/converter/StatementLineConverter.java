@@ -1,5 +1,6 @@
-package com.luchoct.bank.transfers.processor;
+package com.luchoct.bank.transfers.processor.converter;
 
+import com.luchoct.bank.transfers.processor.BankStatement;
 import com.luchoct.bank.transfers.processor.validator.FieldValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +23,11 @@ public class StatementLineConverter {
     private static final short INDEX_CURRENCY = 2;
     private static final short INDEX_AMOUNT = 3;
 
-    private FieldValidator<String> fieldIBANValidator;
-    private FieldValidator<String> fieldDNIValidator;
-    private FieldValidator<String> fieldCurrencyValidator;
-    private FieldValidator<BigDecimal> fieldAmountValidator;
-    private FieldValidator<ZonedDateTime> dateValidator;
+    private final FieldValidator<String> fieldIBANValidator;
+    private final FieldValidator<String> fieldDNIValidator;
+    private final FieldValidator<String> fieldCurrencyValidator;
+    private final FieldValidator<BigDecimal> fieldAmountValidator;
+    private final FieldValidator<ZonedDateTime> dateValidator;
 
     public StatementLineConverter(
             final FieldValidator<String> fieldIBANValidator,
@@ -50,8 +51,11 @@ public class StatementLineConverter {
         final Optional<String> currency = fieldCurrencyValidator.getValidatedValue(fields[INDEX_CURRENCY], errors);
         final Optional<BigDecimal> amount = fieldAmountValidator.getValidatedValue(fields[INDEX_AMOUNT], errors);
         if (errors.isEmpty()) {
-            return new BankStatement(iban.get(), dni.get(), currency.get(), amount.get(), date.get());
+            final BankStatement bankStatement = new BankStatement(iban.get(), dni.get(), currency.get(), amount.get(), date.get());
+            LOGGER.info("Converted bank statement: {}", bankStatement);
+            return bankStatement;
         } else {
+            LOGGER.error("Processing line: found errors {}", errors);
             return null;
         }
     }

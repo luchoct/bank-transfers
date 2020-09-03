@@ -13,5 +13,14 @@ Module that generates random statements and stores them into an FTP server.
 
 Read more details at [README file of the module](statements-loader/README.md).
 
+## statements-processor
+ETL module that reads statements from files hosted in FTP server, processes them and loads them into a MongoDB database.
+
+Read more details at [README file of the module](statements-processor/README.md).
+
 ## TODOs
 * [See TODOs section in statements-loader](statements-loader/README.md).
+* [See TODOs section in statements-processor](statements-processor/README.md).
+
+In addition, see below global TODOs:
+* On launching containers with docker compose, make sure that MongoDB is available before launching statements-processor.

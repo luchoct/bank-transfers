@@ -9,4 +9,6 @@
 /statements-processor/.gradle
 /statements-processor/build/
 !/statements-processor/gradle/wrapper/gradle-wrapper.jar
+/statements-processor/out/run/temporaryFtpFiles
+/statements-processor/out/runTests
 

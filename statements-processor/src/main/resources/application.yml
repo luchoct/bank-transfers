@@ -2,18 +2,13 @@ spring:
   profiles:
     active: prod
 
+# data.mongodb.uri to be set on launching the App.
+# ftpServer properties (host, port, username, password and clientMode) to be set on launching the App.
+
 logging:
   level:
-    org.springframework: ERROR
-    com.luchoct: DEBUG
-
-# TODO remove
-ftpServer:
-  host: 0.0.0.0
-  port: 21
-  username: ftpUser
-  password: ftpPass
-  clientMode: 2
+    ROOT: WARN
+    com.luchoct: INFO
 
 sourceFiles:
   charset: UTF-8
