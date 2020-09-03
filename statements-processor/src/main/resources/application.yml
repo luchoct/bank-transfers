@@ -2,7 +2,7 @@ spring:
   profiles:
     active: prod
 
-# data.mongodb.uri to be set on launching the App.
+# spring.data.mongodb.uri to be set on launching the App.
 # ftpServer properties (host, port, username, password and clientMode) to be set on launching the App.
 
 logging:

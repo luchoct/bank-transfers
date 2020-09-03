@@ -4,7 +4,18 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/statements-api" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../tools/installed/gradle-4.7" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/statements-api" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/statements-processor" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../tools/installed/gradle-4.7" />
@@ -14,6 +25,7 @@
             <option value="$PROJECT_DIR$/statements-processor" />
           </set>
         </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -12,3 +12,7 @@
 /statements-processor/out/run/temporaryFtpFiles
 /statements-processor/out/runTests
 
+/statements-api/out/runTests/
+/statements-api/.gradle
+/statements-api/build/
+!/statements-api/gradle/wrapper/gradle-wrapper.jar

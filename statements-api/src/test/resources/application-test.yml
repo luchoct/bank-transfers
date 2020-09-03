@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: test
+  data:
+    mongodb:
+      uri: mongodb://bankTranksfersUser:bankTranksfersPass@127.0.0.1:27017/bank-transfers
+
+logging:
+  level:
+    org.springframework: INFO
+    com.luchoct: DEBUG

@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mongo-db:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_DATABASE: bank-transfers
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminPass
+    ports:
+      - "27017:27017"
+    volumes:
+      - "../mongodb/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro"
+      - "./out/run/insert-data-db.js:/docker-entrypoint-initdb.d/insertdata.js:ro"
+  statements-api:
+    build:
+      context: .
+    image: luchoct/statements-api
+    depends_on:
+      - mongo-db
+    environment:
+      spring.data.mongodb.uri: mongodb://bankTransfersUser:bankTransfersPass@mongo-db:27017/bank-transfers
+    ports:
+      - "8080:8080"
+    restart: on-failure

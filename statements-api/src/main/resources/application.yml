@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: prod
+
+# spring.data.mongodb.uri to be set on launching the App.
+
+logging:
+  level:
+    ROOT: INFO
+    com.luchoct: INFO
+    spring.framework: DEBUG
+
