@@ -20,14 +20,16 @@ This module loads FTP configuration from environment variables:
 ## Running only this module (standalone)
 Launching this module starts the module and ftp server.
 
-In the current dir, launch docker-compose with the configuration file for standalone mode.
-```
-start docker-compose -f docker-compose-standalone.yml up
-```
-Stop services and remove containers with following command:
-```
-docker-compose -f docker-compose-standalone.yml down
-```
+1. In the current dir, launch docker-compose with the configuration file for standalone mode.
+    ```
+    start docker-compose -f docker-compose-standalone.yml up
+    ```
+   System keeps generating files and uploading it to FTP server.
+2. Click Ctrl+C over window with docker compose (step 1).
+3. Stop services and remove containers with following command:
+    ```
+    docker-compose -f docker-compose-standalone.yml down
+    ```
 As per configuration of statements_loader service in docker compose file, the client connects in active mode.
 
 ## Integration tests.
@@ -41,7 +43,8 @@ In the current dir, run following commands:
     ```
     .\venv\Scripts\python.exe -m unittest discover -s tests/integration
     ```
-3. Stop services and remove containers with following command:
+3. Click Ctrl+C over window with docker compose (step 1).
+4. Stop services and remove containers with following command:
     ```
     docker-compose -f ./tests/resources/docker-compose-int-test.yml down
     ```
@@ -53,7 +56,7 @@ regarding FTP server set the following env variables:
 * `FTP_PASSWORD`: `ftpPass`
 * `FTP_PASSIVE`: `True`
 
-As per docker-compose-file, FTP server folder is mapped as a Docker volume to `./out/tests/ftpServerContent`. 
+As per docker-compose-file, FTP server folder is mapped as a Docker volume to `./out/runTests/ftpServerContent`. 
 However, as integration tests do remove uploaded FTP files, this folder will be empty after every execution.  
 
 ## Unit tests.
@@ -61,7 +64,7 @@ In order to run unit tests, run following commands in the current dir:
 ```
 .\venv\Scripts\python.exe -m unittest discover -s tests/unit
 ```
-   
+As per code, a file is generated in `/out/runTests/unit`.   
 # TODOs
 * FTP connection uses default timeouts of Python ftplib module.
 * FTP connection is not secured with TLS.

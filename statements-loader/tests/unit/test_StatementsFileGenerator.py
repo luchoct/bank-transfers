@@ -5,7 +5,7 @@ from datetime import datetime
 from os.path import isfile
 import os
 
-TEST_FILE_OUTPUT_DIRECTORY = 'out/tests'
+TEST_FILE_OUTPUT_DIRECTORY = 'out/runTests/unit'
 
 class TestStatementsFileGenerator(unittest.TestCase):
     def setUp(self):
